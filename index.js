@@ -8,7 +8,8 @@ const resolvers = require('./graphql/resolvers')
 
 const server = new ApolloServer({
     typeDefs,
-    resolvers
+    resolvers,
+    context: ({ req }) => ({ req })
 });
 
 mongoose.connect(MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
@@ -17,5 +18,5 @@ mongoose.connect(MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
         return server.listen({ port: 5000 })
     })
     .then(res => {
-        console.log(`Seerver running at localhost:5000`);
+        console.log(`Server running at localhost:5000`);
     });
